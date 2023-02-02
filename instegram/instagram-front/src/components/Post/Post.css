@@ -1,0 +1,12 @@
+.img-Post {
+  width: 100%;
+  height: auto;
+}
+
+.CardActions {
+  display: flex;
+}
+
+.AlignRight {
+  margin-left: auto !important;
+}
