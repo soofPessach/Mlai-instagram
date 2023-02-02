@@ -1,6 +1,9 @@
+import { useContext } from "react";
+import FullProfile from "../components/Profile/FullProfile";
 import Info from "../components/Profile/info/Info";
 import NavBarP from "../components/Profile/NavBar/NavBarP";
 import PostListP from "../components/Profile/PostListP/PostListP";
+import { UserContext } from "../contexts/UserContext";
 import IPost from "../interfaces/IPost";
 import IUser from "../interfaces/IUser";
 
@@ -29,15 +32,21 @@ const post3: IPost = {
   description: "dskfhskfh skdfhsdkfh ksdfgsdkf ksfhskdf",
 };
 
-const posts: IPost[] = [post, post2, post3,post, post2, post3];
+const posts: IPost[] = [post, post2, post3, post, post2, post3];
 
 function Profile() {
+  const { user } = useContext(UserContext)
+
+  const getPage = (): JSX.Element => {
+    return user ?
+      <FullProfile user={user} /> : <></>;
+  }
+
   return (
     <>
-      <Info profile={user}></Info>
-      <PostListP posts={posts}></PostListP>
+      {getPage}
     </>
-  );
+  )
 }
 
 export default Profile;

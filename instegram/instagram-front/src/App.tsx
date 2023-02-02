@@ -9,19 +9,19 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import routes from "./routes/routes";
 import NavBar from "./components/NavBar/NavBar";
-import NavBarP from "./components/Profile/NavBar/NavBarP";
+import UpperNavBar from "./components/Profile/NavBar/NavBarP";
 import { getUser } from "./requests/usersRequests";
 import { addPost, getAllPosts, getUserPosts } from "./requests/postRequests";
 import { addLike } from "./requests/likeRequests";
 
 function App() {
-  const a = async () => {
-    console.log(await addLike(20, "test"));
-  };
-  a();
+  // const a = async () => {
+  // console.log(await addLike(20, "test"));
+  // };
+  // a();
   return (
     <div>
-      {/* <NavBarP userName="SoofPe" />
+      <UpperNavBar userName="SoofPe" />
       <NavBar />
       <BrowserRouter>
         <Routes>
@@ -29,7 +29,7 @@ function App() {
             <Route path={route.path} element={<route.component />} />
           ))}
         </Routes>
-      </BrowserRouter> */}
+      </BrowserRouter>
     </div>
   );
 }

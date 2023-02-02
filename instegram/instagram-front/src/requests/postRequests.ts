@@ -1,4 +1,5 @@
 import axios from "axios";
+import IPost from "../interfaces/IPost";
 import IUser from "../interfaces/IUser";
 
 export const getAllPosts = async () => {
@@ -26,6 +27,7 @@ export const getUserPosts = async (userName: string) => {
     ).data;
   } catch (e: any) {
     console.log("error: " + e.message);
+    return null;
   }
 };
 

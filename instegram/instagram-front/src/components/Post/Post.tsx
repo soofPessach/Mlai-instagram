@@ -15,6 +15,7 @@ import IPost from "../../interfaces/IPost";
 import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
+import { useNavigate } from "react-router-dom";
 
 interface IPostFun {
   post: IPost;
@@ -22,6 +23,7 @@ interface IPostFun {
 
 function Post({ post }: IPostFun) {
   const [isLiked, setIsLiked] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const likePost = () => {
     setIsLiked(!isLiked);
@@ -32,12 +34,12 @@ function Post({ post }: IPostFun) {
       <CardHeader
         avatar={
           post.postOwner.userImg ? (
-            <Avatar src={post.postOwner.userImg}></Avatar>
+            <Avatar src={post.postOwner.userImg} onClick={() => { navigate('/Profile') }}></Avatar>
           ) : (
-            <Avatar>{post.postOwner.userName[0]}</Avatar>
+            <Avatar onClick={() => { navigate('/Profile') }}> {post.postOwner.userName[0]} </Avatar>
           )
         }
-        title={<b> {post.postOwner.userName} </b>}
+        title={< b > {post.postOwner.userName} </b >}
         subheader={post.location ? post.location : ""}
       />
 
@@ -69,7 +71,7 @@ function Post({ post }: IPostFun) {
           <b>{post.postOwner.userName}</b> {post.description}
         </Typography>
       </CardContent>
-    </Card>
+    </Card >
   );
 }
 
