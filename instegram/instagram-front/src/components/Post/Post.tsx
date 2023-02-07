@@ -34,12 +34,24 @@ function Post({ post }: IPostFun) {
       <CardHeader
         avatar={
           post.postOwner.userImg ? (
-            <Avatar src={post.postOwner.userImg} onClick={() => { navigate('/Profile') }}></Avatar>
+            <Avatar
+              src={post.postOwner.userImg}
+              onClick={() => {
+                navigate("/Profile");
+              }}
+            ></Avatar>
           ) : (
-            <Avatar onClick={() => { navigate('/Profile') }}> {post.postOwner.userName[0]} </Avatar>
+            <Avatar
+              onClick={() => {
+                navigate("/Profile");
+              }}
+            >
+              {" "}
+              {post.postOwner.userName[0]}{" "}
+            </Avatar>
           )
         }
-        title={< b > {post.postOwner.userName} </b >}
+        title={<b> {post.postOwner.userName} </b>}
         subheader={post.location ? post.location : ""}
       />
 
@@ -65,13 +77,13 @@ function Post({ post }: IPostFun) {
 
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          <b>{post.likes} likes</b>
+          <b>{"1"} likes</b>
         </Typography>
         <Typography variant="body2" color="text.secondary">
           <b>{post.postOwner.userName}</b> {post.description}
         </Typography>
       </CardContent>
-    </Card >
+    </Card>
   );
 }
 

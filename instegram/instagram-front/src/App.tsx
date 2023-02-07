@@ -1,27 +1,23 @@
-import React from "react";
-import logo from "./logo.svg";
+import { useEffect } from "react";
 import "./App.css";
-import Post from "./components/Post/Post";
-import IUser from "./interfaces/IUser";
-import IPost from "./interfaces/IPost";
 
-import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import routes from "./routes/routes";
 import NavBar from "./components/NavBar/NavBar";
 import UpperNavBar from "./components/Profile/NavBar/NavBarP";
 import { getUser } from "./requests/usersRequests";
-import { addPost, getAllPosts, getUserPosts } from "./requests/postRequests";
-import { addLike } from "./requests/likeRequests";
+import { useAuth } from "./contexts/UserContext";
 
 function App() {
-  // const a = async () => {
-  // console.log(await addLike(20, "test"));
-  // };
-  // a();
+  const { user, setUser } = useAuth();
+
+  useEffect(() => {
+    getUser("Soof").then(setUser);
+  }, []);
+
   return (
     <div>
-      <UpperNavBar userName="SoofPe" />
+      <UpperNavBar userName={user?.userName} />
       <NavBar />
       <BrowserRouter>
         <Routes>

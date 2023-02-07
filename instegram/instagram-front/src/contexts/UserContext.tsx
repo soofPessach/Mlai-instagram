@@ -1,13 +1,14 @@
-import { create } from "domain";
-import { createConnection } from "net";
-import { createContext, useState } from "react";
+import { createContext, useState, useContext } from "react";
 import IUser from "../interfaces/IUser";
 import IUserContext from "../interfaces/IUserContext";
 
-export const UserContext = createContext<IUserContext>({ user: null });
+export const UserContext = createContext<IUserContext>({
+  user: { userName: "" },
+  setUser: () => {},
+});
 
 export const UserProvider = ({ children }: any) => {
-  const [user, setUser] = useState<IUser | null>(null);
+  const [user, setUser] = useState<IUser>({ userName: "" });
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
@@ -15,3 +16,7 @@ export const UserProvider = ({ children }: any) => {
     </UserContext.Provider>
   );
 };
+
+export function useAuth() {
+  return useContext(UserContext);
+}

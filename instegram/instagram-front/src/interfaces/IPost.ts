@@ -1,13 +1,11 @@
-import IUser from "./IUser"
+import IUser from "./IUser";
 
-
-interface IPost{
-    postOwner: IUser,
-    imgSrc: string,
-    likes: number,
-    location? : string,
-    description? : string
-
+interface IPost {
+  postId: number;
+  postOwner: IUser;
+  imgSrc: string;
+  location?: string;
+  description?: string;
 }
 
-export default IPost
+export default IPost;

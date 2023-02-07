@@ -9,6 +9,7 @@ interface INavBarP {
 function UpperNavBar({ userName }: INavBarP) {
 
   const findComponent = () => {
+    console.log(userName + ' user name')
     switch (window.location.pathname.split('/')[1]) {
       case 'Profile':
         return userName;
