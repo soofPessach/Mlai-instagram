@@ -7,9 +7,7 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
-import { error } from "console";
 import { useState } from "react";
-import { createParenthesizedType } from "typescript";
 import { useAuth } from "../contexts/UserContext";
 import { addPost } from "../requests/postRequests";
 
@@ -18,7 +16,9 @@ function AddPost() {
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
   const { user } = useAuth();
-  const [errorMsg, setErrorMsg] = useState("");
+  const [urlErrorMsg, setUrlErrorMsg] = useState("");
+  const [addErrorMsg, setAddErrorMsg] = useState("");
+
 
   function isImgUrl(url: string) {
     const img = new Image();
@@ -31,10 +31,15 @@ function AddPost() {
 
   const add = async () => {
     if (await isImgUrl(imgUrl)) {
-      setErrorMsg("");
-      await addPost(imgUrl, user, location, description);
+      setUrlErrorMsg("");
+      try {
+        await addPost(imgUrl, user, location, description);
+      }
+      catch (e: any) {
+        setAddErrorMsg(e)
+      }
     } else {
-      setErrorMsg("please put an image to upload");
+      setUrlErrorMsg("please put a valid url image");
     }
   };
 
@@ -55,8 +60,8 @@ function AddPost() {
             multiline
             value={imgUrl}
             label="image url"
-            helperText={errorMsg}
-            error={errorMsg !== "" ? true : false}
+            helperText={urlErrorMsg}
+            error={urlErrorMsg !== "" ? true : false}
             onChange={(event) => setImgUrl(event.target.value)}
           ></TextField>
           <img height="30%" width="30%" src={imgUrl}></img>
