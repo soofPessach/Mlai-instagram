@@ -1,7 +1,9 @@
 import {
+  Alert,
   Button,
   Chip,
   Divider,
+  IconButton,
   List,
   ListItem,
   Stack,
@@ -9,7 +11,9 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { useAuth } from "../contexts/UserContext";
+import IAlertMsg from "../interfaces/IAlertMsg";
 import { addPost } from "../requests/postRequests";
+import CloseIcon from "@mui/icons-material/Close";
 
 function AddPost() {
   const [imgUrl, setImgUrl] = useState("");
@@ -17,8 +21,10 @@ function AddPost() {
   const [location, setLocation] = useState("");
   const { user } = useAuth();
   const [urlErrorMsg, setUrlErrorMsg] = useState("");
-  const [addErrorMsg, setAddErrorMsg] = useState("");
-
+  const [addActionAlert, setAddActionAlert] = useState<IAlertMsg>({
+    message: "",
+    type: "info",
+  });
 
   function isImgUrl(url: string) {
     const img = new Image();
@@ -34,9 +40,15 @@ function AddPost() {
       setUrlErrorMsg("");
       try {
         await addPost(imgUrl, user, location, description);
-      }
-      catch (e: any) {
-        setAddErrorMsg(e)
+        setAddActionAlert({
+          message: "the post was uploaded successfully",
+          type: "success",
+        });
+      } catch (e: any) {
+        setAddActionAlert({
+          message: "uploading failed.. please try again",
+          type: "error",
+        });
       }
     } else {
       setUrlErrorMsg("please put a valid url image");
@@ -45,6 +57,27 @@ function AddPost() {
 
   return (
     <>
+      {addActionAlert.message !== "" ? (
+        <Alert
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setAddActionAlert({ message: "", type: "info" });
+              }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+          severity={addActionAlert.type}
+        >
+          {addActionAlert.message}
+        </Alert>
+      ) : (
+        <></>
+      )}
       <List
         sx={{
           width: "100%",
