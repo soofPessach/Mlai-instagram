@@ -7,18 +7,16 @@ interface INavBarP {
 }
 
 function UpperNavBar({ userName }: INavBarP) {
-
   const findComponent = () => {
-    console.log(userName + ' user name')
-    switch (window.location.pathname.split('/')[1]) {
-      case 'Profile':
+    switch (window.location.pathname.split("/")[1]) {
+      case "Profile":
         return userName;
-      case 'AddPost':
-        return 'New Post'
+      case "AddPost":
+        return "New Post";
       default:
-        return 'Instagram'
+        return "Instagram";
     }
-  }
+  };
   return (
     <>
       <AppBar position="sticky" color="inherit">

@@ -1,10 +1,12 @@
 import { Avatar, Box } from "@mui/material";
+import { useEffect } from "react";
 import IDetailsP from "../../../interfaces/IDetailsP";
-import IUser from "../../../interfaces/IUser";
+import {IUser} from "../../../interfaces/IUser";
 import StatisticsList from "../Statistics/StatisticsList/StatisticsList";
 
 interface IInfo {
   profile: IUser;
+  postsAmount: number;
 }
 
 const details: IDetailsP[] = [
@@ -13,14 +15,18 @@ const details: IDetailsP[] = [
   { header: "Following", quantity: 117 },
 ];
 
-function Info({ profile }: IInfo) {
+function Info({ profile, postsAmount }: IInfo) {
+  useEffect(() => {
+    details[0].quantity = postsAmount;
+  }, []);
+
   return (
     <>
       <Box
         sx={{
           display: "flex",
           flexDirection: "row",
-          padding: '20px'
+          padding: "20px",
         }}
       >
         {profile.userImg ? (

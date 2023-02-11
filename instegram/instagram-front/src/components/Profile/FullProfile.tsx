@@ -1,34 +1,61 @@
+import { Alert, IconButton } from "@mui/material";
 import { useEffect, useState } from "react";
-import IPost from "../../interfaces/IPost";
-import IUser from "../../interfaces/IUser";
+import { emptyAlertMsg, IAlertMsg } from "../../interfaces/IAlertMsg";
 import { getUserPosts } from "../../requests/postRequests";
 import Info from "./info/Info";
 import PostListP from "./PostListP/PostListP";
-
-const user: IUser = { userName: "SoofPess" };
+import CloseIcon from "@mui/icons-material/Close";
+import { IUser } from "../../interfaces/IUser";
 
 interface IFullProfile {
   user: IUser;
 }
 
 function Profile({ user }: IFullProfile) {
-  const [userPosts, setuserPosts] = useState([]);
+  const [userPosts, setUserPosts] = useState([]);
+  const [userPostsAmount, setUserPostsAmount] = useState(0);
+  const [postsNotFoundAlert, setPostsNotFoundAlert] =
+    useState<IAlertMsg>(emptyAlertMsg);
 
   useEffect(() => {
-    getUserPosts(user.userName).then((data) => {
-      if (data) {
-        setuserPosts(data);
-      }
-    });
-  });
+    getUserPosts(user.userName)
+      .then((data) => {
+        if (data) {
+          setUserPosts(data);
+          setUserPostsAmount(data.length);
+        }
+      })
+      .catch((e) => {
+        setPostsNotFoundAlert({
+          type: "error",
+          message: `${user.userName} does not have any posts yet...`,
+        });
+      });
+  }, [user]);
 
   return (
     <>
-      <Info profile={user}></Info>
-      {userPosts ? (
+      <Info profile={user} postsAmount={userPostsAmount}></Info>
+      {postsNotFoundAlert.message !== emptyAlertMsg.message ? (
         <PostListP posts={userPosts}></PostListP>
       ) : (
-        <h4>no posts was found.</h4>
+        <Alert
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setPostsNotFoundAlert(emptyAlertMsg);
+              }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+          severity={postsNotFoundAlert.type}
+        >
+          {postsNotFoundAlert.message}
+        </Alert>
       )}
     </>
   );

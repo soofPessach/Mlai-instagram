@@ -1,6 +1,6 @@
 import Post from "../components/Post/Post";
 import IPost from "../interfaces/IPost";
-import IUser from "../interfaces/IUser";
+import {IUser} from "../interfaces/IUser";
 
 const user: IUser = { userName: "SoofPess" };
 

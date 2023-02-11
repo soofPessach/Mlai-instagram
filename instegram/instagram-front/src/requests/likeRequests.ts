@@ -36,12 +36,32 @@ export const addLike = async (postId: number, userName: string) => {
         url: `http://localhost:3000/likes`, //Endpoint goes here,
         params: {},
         data: {
-          userName: userName,
+          username: userName,
           postId: postId,
         },
       })
     ).data;
   } catch (e: any) {
     console.log("error: " + e.message);
+    throw new Error(e);
+  }
+};
+
+export const removeLike = async (postId: number, userName: string) => {
+  try {
+    return (
+      await axios({
+        method: "delete",
+        url: `http://localhost:3000/likes`, //Endpoint goes here,
+        params: {},
+        data: {
+          username: userName,
+          postId: postId,
+        },
+      })
+    ).data;
+  } catch (e: any) {
+    console.log("error: " + e.message);
+    throw new Error(e);
   }
 };

@@ -1,6 +1,11 @@
-interface IUser{
-    userName: string,
-    userImg?: string,
+interface IUser {
+  userName: string;
+  userImg?: string;
 }
 
-export default IUser
+const defaultUser: IUser = {
+  userName: "",
+};
+
+export { defaultUser };
+export type { IUser };

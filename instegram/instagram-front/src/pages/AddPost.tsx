@@ -11,9 +11,9 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { useAuth } from "../contexts/UserContext";
-import IAlertMsg from "../interfaces/IAlertMsg";
 import { addPost } from "../requests/postRequests";
 import CloseIcon from "@mui/icons-material/Close";
+import { emptyAlertMsg, IAlertMsg } from "../interfaces/IAlertMsg";
 
 function AddPost() {
   const [imgUrl, setImgUrl] = useState("");
@@ -21,10 +21,8 @@ function AddPost() {
   const [location, setLocation] = useState("");
   const { user } = useAuth();
   const [urlErrorMsg, setUrlErrorMsg] = useState("");
-  const [addActionAlert, setAddActionAlert] = useState<IAlertMsg>({
-    message: "",
-    type: "info",
-  });
+  const [addActionAlert, setAddActionAlert] =
+    useState<IAlertMsg>(emptyAlertMsg);
 
   function isImgUrl(url: string) {
     const img = new Image();
@@ -38,6 +36,7 @@ function AddPost() {
   const add = async () => {
     if (await isImgUrl(imgUrl)) {
       setUrlErrorMsg("");
+
       try {
         await addPost(imgUrl, user, location, description);
         setAddActionAlert({
@@ -57,7 +56,7 @@ function AddPost() {
 
   return (
     <>
-      {addActionAlert.message !== "" ? (
+      {addActionAlert.message !== emptyAlertMsg.message ? (
         <Alert
           action={
             <IconButton
@@ -65,7 +64,7 @@ function AddPost() {
               color="inherit"
               size="small"
               onClick={() => {
-                setAddActionAlert({ message: "", type: "info" });
+                setAddActionAlert(emptyAlertMsg);
               }}
             >
               <CloseIcon fontSize="inherit" />

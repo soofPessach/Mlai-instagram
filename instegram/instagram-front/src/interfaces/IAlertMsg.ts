@@ -5,4 +5,10 @@ interface IAlertMsg {
   message: string;
 }
 
-export default IAlertMsg;
+const emptyAlertMsg: IAlertMsg = {
+  message: "",
+  type: "info",
+};
+
+export { emptyAlertMsg };
+export type { IAlertMsg };

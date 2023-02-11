@@ -16,7 +16,12 @@ import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
 import { useNavigate } from "react-router-dom";
-import { getPostLikesAmount, isUserLikedPost } from "../../requests/likeRequests";
+import {
+  addLike,
+  getPostLikesAmount,
+  isUserLikedPost,
+  removeLike,
+} from "../../requests/likeRequests";
 import { useAuth } from "../../contexts/UserContext";
 
 interface IPostFun {
@@ -32,20 +37,16 @@ function Post({ post }: IPostFun) {
 
   useEffect(() => {
     getPostLikesAmount(post.postId).then(setLikesAmount);
-  }, [] );
+  }, [isLiked]);
 
   useEffect(() => {
     isUserLikedPost(post.postId, user.userName).then(setIsLiked);
   }, []);
 
   const likePost = () => {
-    setIsLiked(!isLiked);
-    // isLiked ? {
-
-    // } : {
-
-    // };
-
+    isLiked
+      ? removeLike(post.postId, user.userName).then(() => setIsLiked(false))
+      : addLike(post.postId, user.userName).then(() => setIsLiked(true));
   };
 
   return (
@@ -56,7 +57,9 @@ function Post({ post }: IPostFun) {
             <Avatar
               src={post.postOwner.userImg}
               onClick={() => {
-                navigate("/Profile");
+                navigate("/Profile", {
+                  state: { profileUser: post.postOwner },
+                });
               }}
             ></Avatar>
           ) : (
@@ -65,8 +68,7 @@ function Post({ post }: IPostFun) {
                 navigate("/Profile");
               }}
             >
-              {" "}
-              {post.postOwner.userName[0]}{" "}
+              {post.postOwner.userName[0]}
             </Avatar>
           )
         }

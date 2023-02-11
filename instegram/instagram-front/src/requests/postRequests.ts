@@ -1,27 +1,29 @@
 import axios from "axios";
 import IPost from "../interfaces/IPost";
-import IUser from "../interfaces/IUser";
+import {IUser} from "../interfaces/IUser";
 
 export const getAllPosts = async () => {
   try {
     return (
       await axios({
         method: "get",
-        url: `http://localhost:3000/posts`, //Endpoint goes here,
+        url: `http://localhost:3000/posts`,
         params: {},
       })
     ).data;
   } catch (e: any) {
     console.log("error: " + e.message);
+    throw new Error(e);
   }
 };
 
 export const getUserPosts = async (userName: string) => {
+  alert(userName);
   try {
     return (
       await axios({
         method: "get",
-        url: `http://localhost:3000/posts/user/${userName}`, //Endpoint goes here,
+        url: `http://localhost:3000/posts/user/${userName}`,
         params: {},
       })
     ).data;
@@ -53,5 +55,6 @@ export const addPost = async (
     ).data;
   } catch (e: any) {
     console.log("error: " + e.message);
+    throw new Error(e);
   }
 };
