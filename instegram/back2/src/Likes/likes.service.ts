@@ -8,7 +8,7 @@ export class LikesService {
   constructor(
     @InjectRepository(Like)
     private likeRepository: Repository<Like>,
-  ) {}
+  ) { }
 
   getLikesQuantity(postId: number) {
     return this.likeRepository.countBy({
@@ -20,16 +20,15 @@ export class LikesService {
 
   async getLikeId(postId: number, userName: string) {
     try {
-      const like: Like = await this.likeRepository.findOneBy({
+      return (await this.likeRepository.findOneBy({
         post: {
           postId: postId,
         },
         user: {
           userName: userName,
         },
-      });
+      })).likeId;
 
-      return like.likeId;
     } catch (e) {
       return null;
     }

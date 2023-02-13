@@ -3,9 +3,6 @@ import { Post } from '../Models/PostModel';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../Models/UserModel';
-import { UsersService } from '../Users/users.service';
-import { PostsController } from './posts.controllers';
-import { UsersController } from '../Users/users.controllers';
 
 @Injectable()
 export class PostsService {

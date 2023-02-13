@@ -27,7 +27,7 @@ function Feed() {
   return (
     <>
       {postsNotFoundAlert.message === emptyAlertMsg.message ? (
-        posts.map((post) => <Post post={post} />)
+        posts.map((post) => <Post key={post.postId} post={post} />)
       ) : (
         <Alert
           action={

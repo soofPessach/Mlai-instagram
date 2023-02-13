@@ -22,7 +22,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           {routes.map((route) => (
-            <Route path={route.path} element={<route.component />} />
+            <Route key={route.path} path={route.path} element={<route.component />} />
           ))}
         </Routes>
       </BrowserRouter>

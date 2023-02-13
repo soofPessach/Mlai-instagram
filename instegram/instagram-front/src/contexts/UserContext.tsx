@@ -1,10 +1,10 @@
 import { createContext, useState, useContext } from "react";
-import { IUser } from "../interfaces/IUser";
+import { defaultUser, IUser } from "../interfaces/IUser";
 import IUserContext from "../interfaces/IUserContext";
 
 export const UserContext = createContext<IUserContext>({
-  user: { userName: "" },
-  setUser: () => {},
+  user: defaultUser,
+  setUser: () => { },
 });
 
 export const UserProvider = ({ children }: any) => {
@@ -18,5 +18,6 @@ export const UserProvider = ({ children }: any) => {
 };
 
 export function useAuth() {
+  console.log('auth')
   return useContext(UserContext);
 }

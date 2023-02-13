@@ -1,5 +1,5 @@
 import { AppBar, Typography, Link, Button } from "@mui/material";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../../contexts/UserContext";
 
 interface INavBarP {
@@ -7,22 +7,32 @@ interface INavBarP {
 }
 
 function UpperNavBar({ userName }: INavBarP) {
+
+  const [upperBarValue, setUpperBarValue] = useState<string | undefined>('');
+
   const findComponent = () => {
-    switch (window.location.pathname.split("/")[1]) {
+
+    const currPath = window.location.pathname;
+
+    switch (currPath.split("/")[1]) {
       case "Profile":
-        return userName;
+        return currPath.split("/")[2];
       case "AddPost":
         return "New Post";
       default:
         return "Instagram";
     }
   };
+  useEffect(() => {
+    setUpperBarValue(findComponent());
+  }, [window.location.pathname]);
+
   return (
     <>
       <AppBar position="sticky" color="inherit">
         {
           <Typography variant="h6" align="center">
-            <b> {findComponent()}</b>
+            <b>{upperBarValue}</b>
           </Typography>
         }
       </AppBar>

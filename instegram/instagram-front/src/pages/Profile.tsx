@@ -4,25 +4,30 @@ import FullProfile from "../components/Profile/FullProfile";
 import { useAuth, UserContext } from "../contexts/UserContext";
 import { emptyAlertMsg, IAlertMsg } from "../interfaces/IAlertMsg";
 import CloseIcon from "@mui/icons-material/Close";
-import { useLocation } from "react-router-dom";
 import { IUser, defaultUser } from "../interfaces/IUser";
+import { getUser } from "../requests/usersRequests";
 
 function Profile() {
-  const { state } = useLocation();
   const { user } = useAuth();
   const [userNotFoundAlert, setUserNotFoundAlert] =
     useState<IAlertMsg>(emptyAlertMsg);
   const [pUser, setPUser] = useState<IUser>(defaultUser);
 
   useEffect(() => {
-    console.log(state);
-    state ? setPUser(state.profileUser) : setPUser(user);
-  }, []);
+    const urlUserName: string = window.location.pathname.split("/")[2];
+
+    urlUserName !== ':profileName' ?
+      getUser(urlUserName).then((newUser) => {
+        setPUser(newUser);
+      })
+      :
+      setPUser(user);
+  }, [user]);
 
   return (
     <>
       {user ? (
-        <FullProfile user={user} />
+        <FullProfile user={pUser} />
       ) : (
         <Alert
           action={

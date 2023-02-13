@@ -26,13 +26,11 @@ const routes: IRoute[] = [
   },
   {
     component: Profile,
-    path: "/Profile",
+    path: `/Profile/:profileName`,
     navLinkIcon: AccountCircleOutlinedIcon,
   },
-  // {
-  //   component: UserPosts,
-  //   path: "/UserPosts",
-  // },
+
+
 ];
 
 export default routes;

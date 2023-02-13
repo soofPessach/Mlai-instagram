@@ -18,7 +18,7 @@ const details: IDetailsP[] = [
 function Info({ profile, postsAmount }: IInfo) {
   useEffect(() => {
     details[0].quantity = postsAmount;
-  }, []);
+  }, [postsAmount]);
 
   return (
     <>

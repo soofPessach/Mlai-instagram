@@ -4,16 +4,13 @@ import {
   Body,
   Get,
   Param,
-  Patch,
-  Catch,
-  ConsoleLogger,
 } from '@nestjs/common';
 import { User } from '../Models/UserModel';
 import { PostsService } from './posts.service';
 
 @Controller('posts')
 export class PostsController {
-  constructor(private readonly postsService: PostsService) {}
+  constructor(private readonly postsService: PostsService) { }
 
   @Get()
   getAllPosts() {

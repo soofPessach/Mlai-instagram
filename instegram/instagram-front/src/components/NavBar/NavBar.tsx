@@ -8,7 +8,8 @@ function NavBar() {
     <AppBar position="fixed" color="inherit" sx={{ top: "auto", bottom: "0" }}>
       <Toolbar className="Toolbar">
         {routes.map((route) => (
-          < Link href={route.path} >
+
+          < Link key={route.path} href={route.path} >
             {
               React.createElement(route.navLinkIcon ? route.navLinkIcon : '', {
                 style: { color: "black", width: "40px", height: "auto" },

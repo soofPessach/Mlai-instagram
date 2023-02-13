@@ -19,7 +19,7 @@ function StatisticsList({ details }: IStatisticsList) {
       }}
     >
       {details.map((detail) => (
-        <StatisticsUnit detail={detail} />
+        <StatisticsUnit key={detail.header} detail={detail} />
       ))}
     </Box>
   );

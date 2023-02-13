@@ -3,7 +3,7 @@ import { height } from "@mui/system";
 import { resolvePath, useNavigate } from "react-router-dom";
 import IDetailsP from "../../../interfaces/IDetailsP";
 import IPost from "../../../interfaces/IPost";
-import {IUser} from "../../../interfaces/IUser";
+import { IUser } from "../../../interfaces/IUser";
 import StatisticsList from "../Statistics/StatisticsList/StatisticsList";
 
 interface IPostListP {
@@ -26,6 +26,7 @@ function PostListP({ posts }: IPostListP) {
       >
         {posts.map((post) => (
           <img
+            key={post.postId}
             onClick={() => navigate('')}
             src={post.imgSrc}
             width='99%'

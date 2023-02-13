@@ -15,7 +15,7 @@ import IPost from "../../interfaces/IPost";
 import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   addLike,
   getPostLikesAmount,
@@ -57,15 +57,15 @@ function Post({ post }: IPostFun) {
             <Avatar
               src={post.postOwner.userImg}
               onClick={() => {
-                navigate("/Profile", {
-                  state: { profileUser: post.postOwner },
-                });
+                { console.log(post.postOwner.userName) }
+                navigate(`/profile/${post.postOwner.userName}`);
               }}
             ></Avatar>
           ) : (
             <Avatar
               onClick={() => {
-                navigate("/Profile");
+                { console.log(post.postOwner.userName) }
+                navigate(`/profile/${post.postOwner.userName}`);
               }}
             >
               {post.postOwner.userName[0]}

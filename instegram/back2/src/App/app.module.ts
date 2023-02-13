@@ -3,8 +3,6 @@ import { AppDataSource } from '../data-source';
 import { likesModule } from '../Likes/likes.module';
 import { PostsModule } from '../Posts/posts.module';
 import { UsersModule } from '../Users/users.module';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 
 @Module({
@@ -15,7 +13,7 @@ import { ConfigModule } from '@nestjs/config';
     UsersModule,
     likesModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
