@@ -1,5 +1,11 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
-import { User } from './UserModel';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
+import { User } from './user.model';
 
 @Entity()
 export class Post {
@@ -7,7 +13,7 @@ export class Post {
   postId: number;
 
   @ManyToOne(() => User, (user) => user.userName)
-  @JoinColumn({name: 'postOwner'})
+  @JoinColumn({ name: 'postOwner' })
   postOwner: User;
 
   @Column()

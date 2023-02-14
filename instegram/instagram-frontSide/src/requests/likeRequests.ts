@@ -15,16 +15,19 @@ export const getPostLikesAmount = async (postId: number) => {
 };
 
 export const isUserLikedPost = async (postId: number, userName: string) => {
-  try {
-    return (
-      await axios({
-        method: "get",
-        url: `http://localhost:3000/likes/post/${postId}/user/${userName}`, //Endpoint goes here,
-        params: {},
-      })
-    ).data;
-  } catch (e: any) {
-    console.log("error: " + e.message);
+  if (userName) {
+    try {
+      return (
+        await axios({
+          method: "get",
+          url: `http://localhost:3000/likes/post/${postId}/user/${userName}`, 
+          params: {},
+        })
+      ).data;
+    } catch (e: any) {
+      console.log("error: " + e.message);
+      return false;
+    }
   }
 };
 

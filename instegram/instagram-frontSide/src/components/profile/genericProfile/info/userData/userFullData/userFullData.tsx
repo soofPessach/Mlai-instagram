@@ -1,28 +1,19 @@
-import { Box, Toolbar, Link } from "@mui/material";
-import IDetailsP from "../../../../interfaces/IDetailsP";
-import StatisticsUnit from "../StatustucsUnit/StatisticsUnits";
-
-interface IStatisticsList {
-  details: IDetailsP[];
+import { Box } from "@mui/material";
+import IUSerUnitData from "../../../../../../interfaces/IUserUnitData";
+import DataUnit from "../userUnitData/userUnitData";
+import "./userFullData.css";
+interface IUserFullData {
+  details: IUSerUnitData[];
 }
 
-function StatisticsList({ details }: IStatisticsList) {
+function UserData({ details }: IUserFullData) {
   return (
-    <Box
-      sx={{
-        flexGrow: 1,
-        flexDirection: "row",
-        alignContent: "center",
-        display: "flex",
-        flexWrap: "wrap",
-        justifyContent: "space-evenly",
-      }}
-    >
+    <Box className="userDataBox">
       {details.map((detail) => (
-        <StatisticsUnit key={detail.header} detail={detail} />
+        <DataUnit key={detail.header} detail={detail} />
       ))}
     </Box>
   );
 }
 
-export default StatisticsList;
+export default UserData;

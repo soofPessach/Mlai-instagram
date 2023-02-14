@@ -1,16 +1,10 @@
-import {
-  Controller,
-  Post,
-  Body,
-  Get,
-  Param,
-} from '@nestjs/common';
+import { Controller, Post, Body, Get, Param } from '@nestjs/common';
 import { User } from '../models/user.model';
 import { PostsService } from './posts.service';
 
 @Controller('posts')
 export class PostsController {
-  constructor(private readonly postsService: PostsService) { }
+  constructor(private readonly postsService: PostsService) {}
 
   @Get()
   getAllPosts() {
@@ -19,9 +13,7 @@ export class PostsController {
 
   @Get('user/:username')
   getUserPosts(@Param('username') username: string) {
-    const posts = this.postsService.getUserPosts(username);
-    console.log(posts);
-    return posts;
+    return this.postsService.getUserPosts(username);
   }
 
   @Post()

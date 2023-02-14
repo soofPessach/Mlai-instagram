@@ -1,28 +1,31 @@
 import { useEffect } from "react";
 import "./App.css";
-
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import routes from "./routes/routes";
-import NavBar from "./components/NavBar/NavBar";
-import UpperNavBar from "./components/Profile/NavBar/NavBarP";
 import { getUser } from "./requests/usersRequests";
-import { useAuth } from "./contexts/UserContext";
+import { useAuth } from "./contexts/authContext";
+import UpperNavBar from "./components/navBars/upperNavBar/upperNavBar";
+import BottomNavBar from "./components/navBars/bottomNavBar/bottomNavBar";
 
 function App() {
-  const { user, setUser } = useAuth();
+  const { setLogInUser } = useAuth();
 
   useEffect(() => {
-    getUser("Soof").then(setUser);
-  }, []);
+   getUser("Soof").then(setLogInUser);
+  });
 
   return (
     <div>
-      <UpperNavBar userName={user?.userName} />
-      <NavBar />
+      <UpperNavBar />
+      <BottomNavBar />
       <BrowserRouter>
         <Routes>
           {routes.map((route) => (
-            <Route key={route.path} path={route.path} element={<route.component />} />
+            <Route
+              key={route.path}
+              path={route.path}
+              element={<route.component />}
+            />
           ))}
         </Routes>
       </BrowserRouter>

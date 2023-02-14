@@ -1,24 +1,39 @@
-import { AppBar, Toolbar, Link } from "@mui/material";
+import { BottomNavigation, BottomNavigationAction, Paper } from "@mui/material";
 import React from "react";
-import routes from "../../routes/routes";
-import "./NavBar.css";
+import { useAuth } from "../../../contexts/authContext";
+import routes from "../../../routes/routes";
+import "./bottomNavBar.css";
 
 function NavBar() {
-  return (
-    <AppBar position="fixed" color="inherit" sx={{ top: "auto", bottom: "0" }}>
-      <Toolbar className="Toolbar">
-        {routes.map((route) => (
+  const [value, setValue] = React.useState("feed");
+  const { logInUser } = useAuth();
 
-          < Link key={route.path} href={route.path} >
-            {
-              React.createElement(route.navLinkIcon ? route.navLinkIcon : '', {
-                style: { color: "black", width: "40px", height: "auto" },
-              })
-            }
-          </Link>
+  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+    setValue(newValue);
+  };
+
+  const updatePath = (path: string) => {
+    if (path === routes.find((route) => route.name === "profile")?.path) {
+      return `profile/${logInUser.userName}`;
+    } else {
+      return path;
+    }
+  };
+
+  return (
+    <Paper sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}>
+      <BottomNavigation value={value} onChange={handleChange}>
+        {routes.map((route) => (
+          <BottomNavigationAction
+            href={updatePath(route.path)}
+            key={route.name}
+            label={route.name}
+            value={route.name}
+            icon={React.createElement(route.navLinkIcon)}
+          ></BottomNavigationAction>
         ))}
-      </Toolbar>
-    </AppBar >
+      </BottomNavigation>
+    </Paper>
   );
 }
 

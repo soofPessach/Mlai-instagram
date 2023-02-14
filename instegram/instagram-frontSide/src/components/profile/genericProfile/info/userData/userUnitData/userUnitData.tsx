@@ -1,11 +1,11 @@
 import { Typography, Box } from "@mui/material";
-import IDetailsP from "../../../../interfaces/IDetailsP";
+import IUSerUnitData from "../../../../../../interfaces/IUserUnitData";
 
-interface IStatisticsUnit {
-  detail: IDetailsP;
+interface IDataUnit {
+  detail: IUSerUnitData;
 }
 
-function StatisticsUnit({ detail }: IStatisticsUnit) {
+function DataUnit({ detail }: IDataUnit) {
   return (
     <Box>
       <Typography align="center" variant="h6">
@@ -18,4 +18,4 @@ function StatisticsUnit({ detail }: IStatisticsUnit) {
   );
 }
 
-export default StatisticsUnit;
+export default DataUnit;

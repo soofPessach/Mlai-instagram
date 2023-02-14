@@ -1,15 +1,16 @@
 import { Avatar, Box } from "@mui/material";
 import { useEffect } from "react";
-import IDetailsP from "../../../interfaces/IDetailsP";
-import {IUser} from "../../../interfaces/IUser";
-import StatisticsList from "../Statistics/StatisticsList/StatisticsList";
+import { IUser } from "../../../../interfaces/IUser";
+import IUSerUnitData from "../../../../interfaces/IUserUnitData";
+import "./info.css";
+import UserData from "./userData/userFullData/userFullData";
 
 interface IInfo {
   profile: IUser;
   postsAmount: number;
 }
 
-const details: IDetailsP[] = [
+const defaultDetails: IUSerUnitData[] = [
   { header: "Post", quantity: 6 },
   { header: "Followers", quantity: 152 },
   { header: "Following", quantity: 117 },
@@ -17,30 +18,19 @@ const details: IDetailsP[] = [
 
 function Info({ profile, postsAmount }: IInfo) {
   useEffect(() => {
-    details[0].quantity = postsAmount;
+    defaultDetails[0].quantity = postsAmount;
   }, [postsAmount]);
 
   return (
     <>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          padding: "20px",
-        }}
-      >
+      <Box className="infoBox">
         {profile.userImg ? (
-          <Avatar
-            src={profile.userImg}
-            sx={{ width: "20vw", height: "20vw" }}
-          ></Avatar>
+          <Avatar src={profile.userImg} className="userAvatar"></Avatar>
         ) : (
-          <Avatar sx={{ width: "20vw", height: "20vw" }}>
-            {profile.userName[0]}
-          </Avatar>
+          <Avatar className="userAvatar">{profile.userName[0]}</Avatar>
         )}
 
-        <StatisticsList details={details}></StatisticsList>
+        <UserData details={defaultDetails}></UserData>
       </Box>
     </>
   );

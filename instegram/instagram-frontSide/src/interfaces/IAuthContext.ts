@@ -1,8 +1,8 @@
-import {IUser} from "./IUser";
+import { IUser } from "./IUser";
 
-interface IUserContext {
-  user: IUser;
-  setUser: (logInUser: IUser) => void;
+interface IAuthContext {
+  logInUser: IUser;
+  setLogInUser: (logInUser: IUser) => void;
 }
 
-export default IUserContext;
+export default IAuthContext;

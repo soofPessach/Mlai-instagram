@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import "./Post.css";
+import { useEffect, useState } from "react";
+import "./post.css";
 import {
   Card,
   CardHeader,
@@ -11,18 +11,18 @@ import {
 } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import IPost from "../../interfaces/IPost";
 import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import IPost from "../../../interfaces/IPost";
 import {
   addLike,
   getPostLikesAmount,
   isUserLikedPost,
   removeLike,
-} from "../../requests/likeRequests";
-import { useAuth } from "../../contexts/UserContext";
+} from "../../../requests/likeRequests";
+import { useAuth } from "../../../contexts/authContext";
 
 interface IPostFun {
   post: IPost;
@@ -31,22 +31,24 @@ interface IPostFun {
 function Post({ post }: IPostFun) {
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [likesAmount, setLikesAmount] = useState<number>(0);
-  const { user } = useAuth();
+  const { logInUser } = useAuth();
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    getPostLikesAmount(post.postId).then(setLikesAmount);
-  }, [isLiked]);
+    isUserLikedPost(post.postId, logInUser.userName).then(setIsLiked);
+  }, [logInUser, post]);
 
   useEffect(() => {
-    isUserLikedPost(post.postId, user.userName).then(setIsLiked);
-  }, []);
+    getPostLikesAmount(post.postId).then(setLikesAmount);
+  }, [isLiked, post]);
 
   const likePost = () => {
-    isLiked
-      ? removeLike(post.postId, user.userName).then(() => setIsLiked(false))
-      : addLike(post.postId, user.userName).then(() => setIsLiked(true));
+    +isLiked
+      ? removeLike(post.postId, logInUser.userName).then(() =>
+          setIsLiked(false)
+        )
+      : addLike(post.postId, logInUser.userName).then(() => setIsLiked(true));
   };
 
   return (
@@ -57,14 +59,12 @@ function Post({ post }: IPostFun) {
             <Avatar
               src={post.postOwner.userImg}
               onClick={() => {
-                { console.log(post.postOwner.userName) }
                 navigate(`/profile/${post.postOwner.userName}`);
               }}
             ></Avatar>
           ) : (
             <Avatar
               onClick={() => {
-                { console.log(post.postOwner.userName) }
                 navigate(`/profile/${post.postOwner.userName}`);
               }}
             >
@@ -76,7 +76,7 @@ function Post({ post }: IPostFun) {
         subheader={post.location ? post.location : ""}
       />
 
-      <img src={post.imgSrc} className="img-Post" />
+      <img src={post.imgSrc} alt={post.imgSrc} className="img-Post" />
 
       <CardActions className="CardActions">
         <IconButton onClick={likePost}>

@@ -1,6 +1,6 @@
-interface IDetailsP {
+interface IUSerUnitData {
   header: string;
   quantity: number;
 }
 
-export default IDetailsP;
+export default IUSerUnitData;

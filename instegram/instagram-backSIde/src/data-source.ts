@@ -13,7 +13,7 @@ export const AppDataSource = TypeOrmModule.forRootAsync({
     database: configService.get<string>('DATABASE_NAME'),
     synchronize: false,
     logging: false,
-    entities: [__dirname + '/Models/*'],
+    entities: [__dirname + '/models/*'],
   }),
   inject: [ConfigService],
 });

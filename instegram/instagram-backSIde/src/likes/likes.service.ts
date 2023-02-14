@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { Like } from '../Models/LikeModel';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Like } from '../models/like.model';
 
 @Injectable()
 export class LikesService {
@@ -33,8 +33,8 @@ export class LikesService {
 
   async isPostLikedByUser(postId: number, userName: string) {
     try {
-      await this.getLikeId(postId, userName);
-      return true;
+      const likeId = await this.getLikeId(postId, userName);
+      return likeId ? true : false;
     } catch (e) {
       return false;
     }

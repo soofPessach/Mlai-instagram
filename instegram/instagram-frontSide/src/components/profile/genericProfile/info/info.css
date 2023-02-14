@@ -1,0 +1,10 @@
+.infoBox {
+  display: flex;
+  flex-direction: row;
+  padding: 20px;
+}
+
+.userAvatar {
+  width: 20vw;
+  height: 20vw;
+}

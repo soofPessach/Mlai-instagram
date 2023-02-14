@@ -1,23 +1,22 @@
 import { createContext, useState, useContext } from "react";
+import IAuthContext from "../interfaces/IAuthContext";
 import { defaultUser, IUser } from "../interfaces/IUser";
-import IUserContext from "../interfaces/IUserContext";
 
-export const UserContext = createContext<IUserContext>({
-  user: defaultUser,
-  setUser: () => { },
+export const UserContext = createContext<IAuthContext>({
+  logInUser: defaultUser,
+  setLogInUser: () => {},
 });
 
 export const UserProvider = ({ children }: any) => {
-  const [user, setUser] = useState<IUser>({ userName: "" });
+  const [logInUser, setLogInUser] = useState<IUser>(defaultUser);
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={{ logInUser, setLogInUser }}>
       {children}
     </UserContext.Provider>
   );
 };
 
 export function useAuth() {
-  console.log('auth')
   return useContext(UserContext);
 }

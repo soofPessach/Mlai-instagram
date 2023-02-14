@@ -10,16 +10,16 @@ import {
   TextField,
 } from "@mui/material";
 import { useState } from "react";
-import { useAuth } from "../contexts/UserContext";
-import { addPost } from "../requests/postRequests";
 import CloseIcon from "@mui/icons-material/Close";
 import { emptyAlertMsg, IAlertMsg } from "../interfaces/IAlertMsg";
+import { useAuth } from "../contexts/authContext";
+import { addPost } from "../requests/postRequests";
 
 function AddPost() {
   const [imgUrl, setImgUrl] = useState("");
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
-  const { user } = useAuth();
+  const { logInUser } = useAuth();
   const [urlErrorMsg, setUrlErrorMsg] = useState("");
   const [addActionAlert, setAddActionAlert] =
     useState<IAlertMsg>(emptyAlertMsg);
@@ -38,7 +38,7 @@ function AddPost() {
       setUrlErrorMsg("");
 
       try {
-        await addPost(imgUrl, user, location, description);
+        await addPost(imgUrl, logInUser, location, description);
         setAddActionAlert({
           message: "the post was uploaded successfully",
           type: "success",
@@ -96,7 +96,7 @@ function AddPost() {
             error={urlErrorMsg !== "" ? true : false}
             onChange={(event) => setImgUrl(event.target.value)}
           ></TextField>
-          <img height="30%" width="30%" src={imgUrl}></img>
+          <img alt={imgUrl} height="30%" width="30%" src={imgUrl}></img>
         </ListItem>
         <Divider variant="middle" component="li" />
         <ListItem>

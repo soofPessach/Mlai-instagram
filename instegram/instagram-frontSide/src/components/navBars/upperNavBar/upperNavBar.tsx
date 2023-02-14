@@ -1,19 +1,11 @@
-import { AppBar, Typography, Link, Button } from "@mui/material";
-import { useContext, useEffect, useState } from "react";
-import { UserContext } from "../../../contexts/UserContext";
+import { AppBar, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+import "./upperNavBar.css";
 
-interface INavBarP {
-  userName?: string;
-}
+function UpperNavBar() {
+  const [upperBarValue, setUpperBarValue] = useState<string>("");
 
-function UpperNavBar({ userName }: INavBarP) {
-
-  const [upperBarValue, setUpperBarValue] = useState<string | undefined>('');
-
-  const findComponent = () => {
-
-    const currPath = window.location.pathname;
-
+  const findByPath = (currPath: string) => {
     switch (currPath.split("/")[1]) {
       case "Profile":
         return currPath.split("/")[2];
@@ -24,12 +16,12 @@ function UpperNavBar({ userName }: INavBarP) {
     }
   };
   useEffect(() => {
-    setUpperBarValue(findComponent());
-  }, [window.location.pathname]);
+    setUpperBarValue(findByPath(window.location.pathname));
+  }, []);
 
   return (
     <>
-      <AppBar position="sticky" color="inherit">
+      <AppBar>
         {
           <Typography variant="h6" align="center">
             <b>{upperBarValue}</b>

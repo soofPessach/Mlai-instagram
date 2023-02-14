@@ -1,17 +1,17 @@
 import { Alert, IconButton } from "@mui/material";
 import { useEffect, useState } from "react";
-import { emptyAlertMsg, IAlertMsg } from "../../interfaces/IAlertMsg";
-import { getUserPosts } from "../../requests/postRequests";
 import Info from "./info/Info";
-import PostListP from "./PostListP/PostListP";
 import CloseIcon from "@mui/icons-material/Close";
-import { defaultUser, IUser } from "../../interfaces/IUser";
+import { defaultUser, IUser } from "../../../interfaces/IUser";
+import { emptyAlertMsg, IAlertMsg } from "../../../interfaces/IAlertMsg";
+import { getUserPosts } from "../../../requests/postRequests";
+import ProfilePostsList from "./profilePostsList/profilePostsList";
 
 interface IFullProfile {
   user: IUser;
 }
 
-function Profile({ user }: IFullProfile) {
+function GenericProfile({ user }: IFullProfile) {
   const [userPosts, setUserPosts] = useState([]);
   const [userPostsAmount, setUserPostsAmount] = useState(0);
   const [postsNotFoundAlert, setPostsNotFoundAlert] =
@@ -23,8 +23,7 @@ function Profile({ user }: IFullProfile) {
         .then((data) => {
           setUserPosts(data);
           setUserPostsAmount(data.length);
-        }
-        )
+        })
         .catch((e) => {
           setPostsNotFoundAlert({
             type: "error",
@@ -38,7 +37,7 @@ function Profile({ user }: IFullProfile) {
     <>
       <Info profile={user} postsAmount={userPostsAmount}></Info>
       {postsNotFoundAlert.message === emptyAlertMsg.message ? (
-        <PostListP posts={userPosts}></PostListP>
+        <ProfilePostsList posts={userPosts}></ProfilePostsList>
       ) : (
         <Alert
           action={
@@ -62,4 +61,4 @@ function Profile({ user }: IFullProfile) {
   );
 }
 
-export default Profile;
+export default GenericProfile;

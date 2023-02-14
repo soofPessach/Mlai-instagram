@@ -1,10 +1,10 @@
 import { Alert, IconButton } from "@mui/material";
 import { useEffect, useState } from "react";
-import Post from "../components/Post/Post";
 import IPost from "../interfaces/IPost";
 import { getAllPosts } from "../requests/postRequests";
 import CloseIcon from "@mui/icons-material/Close";
 import { emptyAlertMsg, IAlertMsg } from "../interfaces/IAlertMsg";
+import Post from "../components/feed/post/post";
 
 function Feed() {
   const [posts, setPosts] = useState<IPost[]>([]);
@@ -27,7 +27,10 @@ function Feed() {
   return (
     <>
       {postsNotFoundAlert.message === emptyAlertMsg.message ? (
-        posts.map((post) => <Post key={post.postId} post={post} />)
+        posts
+          .slice(0)
+          .reverse()
+          .map((post) => <Post key={post.postId} post={post} />)
       ) : (
         <Alert
           action={
